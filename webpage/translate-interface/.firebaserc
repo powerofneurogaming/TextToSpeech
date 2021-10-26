@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pong-adventure-van": {
+      "hosting": {
+        "translate-interface": [
+          "pong-adventure-van"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<div *ngIf="auth.user | async as user; else showLogin">
+    <h1>Hello {{ user.displayName }}!</h1>
+    <button (click)="logout()">Logout</button>
+
+    <p>This is a very simple interface to Google's text-to-speech audio intended for intermittent use at the PoNG center at UCSD.</p>
+
+    <p>Enter text below. Click 'submit' to add the text to the list. After a few seconds, click download to download the sound. If it doesn't work at first, wait a little longer.</p>
+
+    <div *ngIf="isAdmin | async; else showPerm">
+        <ul>
+            <li *ngFor="let item of texts | async">
+                {{item | json}}
+                <button (click)="downloadSound(item.id)">Download</button>
+            </li>
+        </ul>
+
+        <form [formGroup]="translate">
+            <div>
+                <textarea formControlName="text"></textarea>
+            </div>
+        </form>
+        <button (click)="onSubmit()">Submit</button>
+    </div>
+
+</div>
+<ng-template #showLogin>
+    <p>Please login.</p>
+    <button (click)="login()">Login with Google</button>
+</ng-template>
+<ng-template #showPerm>
+    <p>Permission denied. If you think you should have access to this, then contact Joe.</p>
+</ng-template>
