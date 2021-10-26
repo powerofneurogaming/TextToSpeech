@@ -7,19 +7,27 @@
     <p>Enter text below. Click 'submit' to add the text to the list. After a few seconds, click download to download the sound. If it doesn't work at first, wait a little longer.</p>
 
     <div *ngIf="isAdmin | async; else showPerm">
+
+        <form [formGroup]="translate">
+            <p>Enter text here (no markup).</p>
+            <div>
+                <textarea formControlName="text"></textarea>
+            </div>
+            <br/>
+            <p>Enter SSML markup here</p>
+            <div>
+                <textarea formControlName="ssml"></textarea>
+            </div>
+        </form>
+        <button (click)="onSubmit()">Submit</button>
+        <br/>
+        <h2>Translations</h2>
         <ul>
             <li *ngFor="let item of texts | async">
                 {{item | json}}
                 <button (click)="downloadSound(item.id)">Download</button>
             </li>
         </ul>
-
-        <form [formGroup]="translate">
-            <div>
-                <textarea formControlName="text"></textarea>
-            </div>
-        </form>
-        <button (click)="onSubmit()">Submit</button>
     </div>
 
 </div>
