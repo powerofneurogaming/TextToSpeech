@@ -16,7 +16,7 @@ export const upgradeUserAdmin = functions.firestore
         .setCustomUserClaims(userRecord.uid, {admin: true});
     } catch (error) {
         console
-        .log("Error upgrading email. Email probably just typed wrong.");
+        .log("Error upgrading email.\n"+error);
     }
 });
 export const downgradeUserAdmin = functions.firestore
@@ -27,10 +27,10 @@ export const downgradeUserAdmin = functions.firestore
         .auth()
         .getUserByEmail(snapshot.data().email);
         return admin.auth()
-        .setCustomUserClaims(userRecord.uid, {admin: true});
+        .setCustomUserClaims(userRecord.uid, {admin: false});
     } catch (error) {
         console
-        .log("Error upgrading email. Email probably just typed wrong.");
+        .log("Error upgrading email.\n"+error);
     }
 });
 

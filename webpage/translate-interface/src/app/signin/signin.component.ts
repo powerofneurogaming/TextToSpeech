@@ -22,7 +22,8 @@ export class SigninComponent implements OnInit {
   isAdmin: Observable<boolean> = of(false);
 
   translate: FormGroup = this.fb.group({
-    text: [null]
+    text: [null],
+    ssml: [null]
   });
 
   constructor(
@@ -68,10 +69,11 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     console.warn(this.translate.value);
-    if(this.translate.value?.text !== "") {
+    if( (this.translate.value?.text && this.translate.value?.text !== "") || 
+    (this.translate.value?.ssml && this.translate.value?.ssml !== "") ) {
       this.addItem(this.translate.value);
+      this.translate.setValue({text: "", ssml: ""});
     }
-    this.translate.setValue({text: ""});
   }
 
   addItem(item: Text) {
